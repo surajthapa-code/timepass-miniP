@@ -2,11 +2,10 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import useFetch from "../hooks/useFetch";
 import { useParams } from "react-router-dom";
-import { useContext } from "react";
-import { ThemeContext } from "../contexts/useContext";
+import { useTheme } from "../contexts/ThemeContext";
 
 function PostDetails() {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme();
   const { id } = useParams();
   const { data, isErr, isLoading } = useFetch({
     url: `https://jsonplaceholder.typicode.com/posts/${id}`,

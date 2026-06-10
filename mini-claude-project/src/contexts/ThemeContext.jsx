@@ -1,14 +1,33 @@
-import { useState } from "react";
-import { ThemeContext } from "./useContext";
-
-export default function ThemecontextProvider({ children }) {
+import {
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+  createContext,
+} from "react";
+export const ThemeContext = createContext(null);
+export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState("dark");
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-  };
-  return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
+  }, []);
+  const value = useMemo(
+    () => ({
+      theme,
+      toggleTheme,
+    }),
+    [theme, toggleTheme],
   );
+  return (
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+  );
+}
+export function useTheme() {
+  const context = useContext(ThemeContext);
+
+  if (!context) {
+    throw new Error("useTheme must be used inside ThemeProvider");
+  }
+
+  return context;
 }

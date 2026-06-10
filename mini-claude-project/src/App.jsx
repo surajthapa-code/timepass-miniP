@@ -3,18 +3,18 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Posts from "./pages/Posts";
 import PostDetails from "./pages/PostDetails";
-import ThemecontextProvider from "./contexts/ThemeContext";
+import { ThemeProvider } from "./contexts/ThemeContext.jsx";
 
 function App() {
   return (
     <>
-      <ThemecontextProvider>
+      <ThemeProvider>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/posts" element={<Posts />} />
           <Route path="/post/:id" element={<PostDetails />} />
         </Routes>{" "}
-      </ThemecontextProvider>
+      </ThemeProvider>
     </>
   );
 }

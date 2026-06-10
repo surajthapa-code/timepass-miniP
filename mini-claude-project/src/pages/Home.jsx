@@ -1,9 +1,8 @@
-import { useContext } from "react";
 import Navbar from "../components/Navbar";
-import { ThemeContext } from "../contexts/useContext";
+import { useTheme } from "../contexts/ThemeContext";
 
 function Home() {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme();
   return (
     <>
       <Navbar />

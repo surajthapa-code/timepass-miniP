@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import Navbar from "../components/Navbar";
-import { useContext } from "react";
-import { ThemeContext } from "../contexts/useContext";
+
+import { useTheme } from "../contexts/ThemeContext";
 
 function Posts() {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme();
   const { data, isLoading, isErr } = useFetch({
     url: "https://jsonplaceholder.typicode.com/posts",
     intlState: [],
@@ -34,7 +34,6 @@ function Posts() {
           flexDirection: "column",
           backgroundColor: theme === "dark" ? "#170d35" : "rgb(74, 84, 130)",
           color: theme === "dark" ? "whitesmoke" : "#111",
-          
         }}
       >
         {isLoading === true && <p>loading...</p>}
