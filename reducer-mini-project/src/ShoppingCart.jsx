@@ -25,6 +25,20 @@ function reducer(state, action) {
         total: state.total + action.payload.price,
       };
     }
+    case "REMOVE": {
+      const updatedItems = state.items.filter(
+        (elem) => elem.id !== action.payload.id,
+      );
+      return {
+        items: updatedItems,
+        total: updatedItems.reduce((acum, current) => {
+          return acum + current;
+        }, 0),
+      };
+    }
+
+    case "CLEAR":
+      return initialState;
     // case "REMOVE":
     //     const itemToRemove = state.items.find(item => item.id === action.payload),
     //     return{
@@ -64,13 +78,33 @@ export default function ShoppingCart() {
         })}
       </div>
       <h1>Cart Items Here.. </h1>
+      <h3>{state.total}</h3>
+      <button
+        onClick={() => {
+          dispatch({ type: "CLEAR" });
+        }}
+      >
+        {" "}
+        Clear{" "}
+      </button>
       <div>
         {state.items.map((item) => {
           return (
             <div key={item.id}>
               <h2>Name: {item.name}</h2>
               <p>Price: {item.price} </p>
-              <button>Remove </button>
+              <button
+                onClick={() =>
+                  dispatch({
+                    type: "REMOVE",
+                    payload: {
+                      id: item.id,
+                    },
+                  })
+                }
+              >
+                Remove{" "}
+              </button>
             </div>
           );
         })}
