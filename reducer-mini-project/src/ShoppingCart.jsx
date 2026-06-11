@@ -32,7 +32,7 @@ function reducer(state, action) {
       return {
         items: updatedItems,
         total: updatedItems.reduce((acum, current) => {
-          return acum + current;
+          return acum + current.price;
         }, 0),
       };
     }
