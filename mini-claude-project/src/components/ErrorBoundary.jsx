@@ -8,6 +8,7 @@ class ErrorBoundary extends React.Component {
 
   static getDerivedStateFromError(error) {
     // Called when a child throws. Update state to show fallback UI.
+    console.log(error);
     return { hasError: true };
   }
 

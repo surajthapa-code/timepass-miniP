@@ -1,4 +1,5 @@
 import Navbar from "../components/Navbar";
+// import RegisterForm from "../components/RegisterForm";
 import { useTheme } from "../contexts/ThemeContext";
 import { ReducerComp } from "../reducer";
 
@@ -7,6 +8,7 @@ function Home() {
   return (
     <>
       <Navbar />
+
       <div
         style={{
           display: "flex",
@@ -18,6 +20,7 @@ function Home() {
           height: "90vh",
         }}
       >
+        {/* <RegisterForm /> ----> commenting out this component, it was just for learning purpose  */}
         <h2> welcome Mere Bhai </h2>
         <ReducerComp />
       </div>

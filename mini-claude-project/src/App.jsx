@@ -9,6 +9,7 @@ const Posts = React.lazy(() => import("./pages/Posts"));
 const PostDetails = React.lazy(() => import("./pages/PostDetails.jsx"));
 
 function App() {
+  
   return (
     <>
       <ThemeProvider>
