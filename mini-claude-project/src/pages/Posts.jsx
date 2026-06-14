@@ -10,7 +10,6 @@ function Posts() {
     url: "https://jsonplaceholder.typicode.com/posts",
     intlState: [],
   });
-  console.log(data);
   return (
     <>
       <Navbar />
