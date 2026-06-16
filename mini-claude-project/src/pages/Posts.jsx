@@ -1,14 +1,16 @@
 import { Link } from "react-router-dom";
-import useFetch from "../hooks/useFetch";
 import Navbar from "../components/Navbar";
-
+import { useQuery } from "@tanstack/react-query";
 import { useTheme } from "../contexts/ThemeContext";
 
 function Posts() {
   const { theme } = useTheme();
-  const { data, isLoading, isErr } = useFetch({
-    url: "https://jsonplaceholder.typicode.com/posts",
-    intlState: [],
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["posts"],
+    queryFn: async () => {
+      const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+      return res.json();
+    },
   });
   return (
     <>
@@ -36,8 +38,8 @@ function Posts() {
         }}
       >
         {isLoading === true && <p>loading...</p>}
-        {isErr === true && <p>Something went wrong</p>}
-        {data.slice(0, 10).map((post) => {
+        {isError === true && <p>Something went wrong</p>}
+        {(data ?? []).slice(0, 10).map((post) => {
           return (
             <Link
               style={{

@@ -1,15 +1,21 @@
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import useFetch from "../hooks/useFetch";
+// import useFetch from "../hooks/useFetch";
 import { useParams } from "react-router-dom";
 import { useTheme } from "../contexts/ThemeContext";
+import { useQuery } from "@tanstack/react-query";
 
 function PostDetails() {
   const { theme } = useTheme();
   const { id } = useParams();
-  const { data, isErr, isLoading } = useFetch({
-    url: `https://jsonplaceholder.typicode.com/posts/${id}`,
-    intlState: {},
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["posts",id],
+    queryFn: async () => {
+      const res = await fetch(
+        `https://jsonplaceholder.typicode.com/posts/${id}`,
+      );
+      return res.json();
+    },
   });
 
   return (
@@ -24,11 +30,11 @@ function PostDetails() {
           color: theme === "dark" ? "whitesmoke" : "#111",
         }}
       >
-        {isErr === true && <p>Something went wrong! </p>}
+        {isError === true && <p>Something went wrong! </p>}
         {isLoading === true && <p>Loading...</p>}
-        <h3>userId: {data.id}</h3>
-        <h3>Title: {data.title}</h3>
-        <p>Post: {data.body}</p>
+        <h3>userId: {data?.id}</h3>
+        <h3>Title: {data?.title}</h3>
+        <p>Post: {data?.body}</p>
       </div>
       <Link
         style={{
