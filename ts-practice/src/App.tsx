@@ -1,8 +1,17 @@
+import { useEffect } from "react";
 import "./App.css";
 import JobCard from "./components/JobCard";
-import type { Job } from "./Shared";
+import type { Post, Job } from "./Shared";
+import fetchData from "./utils/apiHelpers";
 
 function App() {
+  useEffect(() => {
+    fetchData<Post[]>("https://jsonplaceholder.typicode.com/posts")
+      .then((post) => console.log(post[0]))
+      .catch((error) => {
+        throw new Error(error);
+      });
+  }, []);
   const jobs: Job[] = [
     {
       id: 1,
@@ -10,6 +19,7 @@ function App() {
       role: "Frontend Dev",
       status: "applied",
       date: "2026-06-01",
+      salary: 10000,
     },
     {
       id: 2,
@@ -32,6 +42,7 @@ function App() {
     //  jobs = [...jobs,updatedList]
     console.log("remove", { id });
   }
+
   return (
     <>
       {jobs.map((job) => {

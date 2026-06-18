@@ -14,6 +14,7 @@ function JobCard({ job, onRemove }: jobCardProps) {
       <p>salary: {job.salary} </p>
       <p>data: {job.date}</p>
       <button onClick={() => onRemove(job.id)}>remove</button>
+      {job.salary && <p>salary: {job.salary}</p>}
     </div>
   );
 }
